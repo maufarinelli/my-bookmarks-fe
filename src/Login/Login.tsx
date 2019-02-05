@@ -22,6 +22,9 @@ const styles = {
   },
   input: {
     display: "block"
+  },
+  messages: {
+    marginLeft: "20px"
   }
 };
 
@@ -99,6 +102,7 @@ class Login extends React.Component<
               />
               <TextField
                 id="password"
+                type="password"
                 name="password"
                 label="Password: "
                 className={classes.input}
@@ -114,16 +118,18 @@ class Login extends React.Component<
                 Submit
               </Button>
             </form>
-            {success && success !== "" && (
-              <Typography component="p" color="primary">
-                {success}
-              </Typography>
-            )}
-            {error && error !== "" && (
-              <Typography component="p" color="error">
-                {error}
-              </Typography>
-            )}
+            <div className={classes.messages}>
+              {success && success !== "" && (
+                <Typography component="p" color="primary">
+                  {success}
+                </Typography>
+              )}
+              {error && error !== "" && (
+                <Typography component="p" color="error">
+                  {error}
+                </Typography>
+              )}
+            </div>
           </div>
         </div>
       </>
