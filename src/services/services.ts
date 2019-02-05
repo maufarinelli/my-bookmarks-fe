@@ -5,7 +5,7 @@ import qs from "qs";
 const URL = {
   BASE:
     process.env.NODE_ENV === "production"
-      ? "http://142.93.6.7:3010/api"
+      ? "http://142.93.6.7:3010/bookmarks-api"
       : "http://localhost:3010",
   LOGIN: "/login",
   ADD_BOOKMARK: "/add-bookmark",
