@@ -12,6 +12,8 @@
     "@types/react-router": "^4.4.3",
     "@types/react-router-dom": "^4.3.1",
     "axios": "^0.18.0",
+    "express": "^4.16.4",
+    "path": "^0.12.7",
     "qs": "^6.6.0",
     "react": "^16.7.0",
     "react-confirm-alert": "^2.1.0",
@@ -26,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prod": "yarn run build & node server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
