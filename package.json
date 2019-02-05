@@ -29,7 +29,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "prod": "yarn run build & node server.js"
+    "prod": "yarn run build & pm2 start server.js"
   },
   "eslintConfig": {
     "extends": "react-app"
