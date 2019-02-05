@@ -5,9 +5,9 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import MenuItem from "@material-ui/core/MenuItem";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import "./App.css";
 import MyBookmarks from "./MyBookmarks/MyBookmarks";
 import AddBookmark from "./AddBookMark.ts/AddBookmark";
+import Login from "./Login/Login";
 
 interface IApp {
   classes: {
@@ -51,12 +51,18 @@ const App: React.SFC<IApp> = ({ classes }) => (
                   My Bookmarks
                 </Link>
               </MenuItem>
+              <MenuItem className={classes.menuItem}>
+                <Link className={classes.menuItemLink} to="/login">
+                  Login
+                </Link>
+              </MenuItem>
             </ul>
           </Toolbar>
         </AppBar>
         <Route path="/" exact component={MyBookmarks} />
         <Route path="/add-bookmark/" component={AddBookmark} />
         <Route path="/my-bookmarks/" component={MyBookmarks} />
+        <Route path="/login/" component={Login} />
       </>
     </Router>
   </div>

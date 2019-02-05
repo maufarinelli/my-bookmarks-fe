@@ -21,7 +21,8 @@ const styles = {
     marginBottom: "20px"
   },
   input: {
-    display: "block"
+    display: "block",
+    paddingRight: "20px"
   }
 };
 
@@ -81,6 +82,11 @@ class AddBookmark extends React.Component<
             value={this.state.url}
             onChange={this.handleInputChange}
             margin="normal"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true
+            }}
+            fullWidth
           />
           <TextField
             id="category"
@@ -90,6 +96,11 @@ class AddBookmark extends React.Component<
             value={this.state.category}
             onChange={this.handleInputChange}
             margin="normal"
+            variant="outlined"
+            InputLabelProps={{
+              shrink: true
+            }}
+            fullWidth
           />
           <Button variant="contained" color={"primary"} type="submit">
             Submit
