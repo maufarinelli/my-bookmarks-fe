@@ -38,17 +38,12 @@ const App: React.SFC<IApp> = ({ classes }) => (
             <ul>
               <MenuItem className={classes.menuItem}>
                 <Link className={classes.menuItemLink} to="/">
-                  Home
+                  My Bookmarks
                 </Link>
               </MenuItem>
               <MenuItem className={classes.menuItem}>
                 <Link className={classes.menuItemLink} to="/add-bookmark">
                   Add Bookmark
-                </Link>
-              </MenuItem>
-              <MenuItem className={classes.menuItem}>
-                <Link className={classes.menuItemLink} to="/my-bookmarks">
-                  My Bookmarks
                 </Link>
               </MenuItem>
               <MenuItem className={classes.menuItem}>
@@ -61,7 +56,6 @@ const App: React.SFC<IApp> = ({ classes }) => (
         </AppBar>
         <Route path="/" exact component={MyBookmarks} />
         <Route path="/add-bookmark/" component={AddBookmark} />
-        <Route path="/my-bookmarks/" component={MyBookmarks} />
         <Route path="/login/" component={Login} />
       </>
     </Router>

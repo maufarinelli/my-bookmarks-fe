@@ -1,6 +1,13 @@
 import axios from "axios";
 import xss from "xss";
 import qs from "qs";
+import {
+  IUser,
+  ILoginResponse,
+  IBookmark,
+  IAddBookmarkResponse,
+  IGetBookmarksResponse
+} from "../interfaces";
 
 const URL = {
   BASE:
@@ -13,40 +20,9 @@ const URL = {
   DELETE_BOOKMARK: "/delete-bookmark"
 };
 
-interface IUser {
-  username: string;
-  password: string;
-}
-
-interface IBookmark {
-  url: string;
-  category: string;
-}
-
-const postFunction = async (
-  url: string,
-  data: object,
-  needAuth?: boolean
-): Promise<any> => {
-  try {
-    const headers = needAuth
-      ? {
-          headers: { Authorization: "bearer " + getUserToken() }
-        }
-      : undefined;
-    const response = await axios.post(url, data, headers);
-
-    if (response.status !== 200) {
-      throw new Error(`${response.data.message}`);
-    }
-
-    return response.data;
-  } catch (error) {
-    return { error };
-  }
-};
-
-export async function login(userData: IUser) {
+export async function login(
+  userData: IUser
+): Promise<ILoginResponse | { error: Error }> {
   try {
     const response = await axios.post(`${URL.BASE}${URL.LOGIN}`, userData);
 
@@ -61,7 +37,9 @@ export async function login(userData: IUser) {
   }
 }
 
-export async function addBookmark(data: IBookmark) {
+export async function addBookmark(
+  data: IBookmark
+): Promise<IAddBookmarkResponse | { error: Error }> {
   try {
     const response = await axios.post(`${URL.BASE}${URL.ADD_BOOKMARK}`, data, {
       headers: { Authorization: "bearer " + getUserToken() }
@@ -79,7 +57,7 @@ export async function addBookmark(data: IBookmark) {
 
 export async function getBookmarks(filters: {
   [key: string]: string;
-}): Promise<any> {
+}): Promise<IGetBookmarksResponse[] | { error: Error }> {
   const clonedFilters = { ...filters };
   Object.keys(clonedFilters).forEach(key => {
     clonedFilters[key] = xss(clonedFilters[key].trim());
@@ -108,7 +86,9 @@ export async function getBookmarks(filters: {
   }
 }
 
-export async function deleteBookmark(id: number) {
+export async function deleteBookmark(
+  id: number
+): Promise<{ message: string } | { error: Error }> {
   try {
     // Using POST because DELETE in Axios is weird. Does not accept data and passing into the config was not working
     const response = await axios.post(
@@ -129,14 +109,14 @@ export async function deleteBookmark(id: number) {
   }
 }
 
-export function getUserToken() {
+export function getUserToken(): string | null {
   return window.localStorage.getItem("userToken");
 }
 
-export function removeUserToken() {
+export function removeUserToken(): void {
   return window.localStorage.removeItem("userToken");
 }
 
-export function setUserToken(token: string) {
+export function setUserToken(token: string): void {
   window.localStorage.setItem("userToken", token);
 }

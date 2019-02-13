@@ -6,12 +6,13 @@ import Divider from "@material-ui/core/Divider";
 import { getBookmarks, deleteBookmark } from "../services/services";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { IGetBookmarksResponse } from "../interfaces";
 
 interface IMyBookmarksState {
   search: string;
-  results: { url: string; category: string; id: string }[];
+  results: IGetBookmarksResponse[];
   success?: string;
-  error?: string;
+  error?: Error;
 }
 
 const styles = {
@@ -37,7 +38,7 @@ const styles = {
   }
 };
 
-class MyBookmarks extends React.Component<any, IMyBookmarksState> {
+class MyBookmarks extends React.Component<{}, IMyBookmarksState> {
   state = {
     search: "",
     results: [{ url: "", category: "", id: "" }],
@@ -48,10 +49,10 @@ class MyBookmarks extends React.Component<any, IMyBookmarksState> {
   componentDidMount = async () => {
     const results = await getBookmarks({ category: "" });
 
-    if (results) {
-      this.setState({ results });
+    if (Array.isArray(results)) {
+      this.setState({ results: results as IGetBookmarksResponse[] });
     } else {
-      this.setState({ error: results });
+      this.setState({ error: results.error });
     }
   };
 
@@ -74,10 +75,10 @@ class MyBookmarks extends React.Component<any, IMyBookmarksState> {
           onClick: async () => {
             const result = await deleteBookmark(parseInt(itemId, 10));
 
-            if (result) {
+            if (result.message) {
               this.setState({ success: result.message, error: undefined });
             } else {
-              this.setState({ error: result, success: undefined });
+              this.setState({ error: result.error, success: undefined });
             }
           }
         },
@@ -95,10 +96,10 @@ class MyBookmarks extends React.Component<any, IMyBookmarksState> {
     event.preventDefault();
     const results = await getBookmarks({ category: this.state.search });
 
-    if (results) {
-      this.setState({ results });
+    if (Array.isArray(results)) {
+      this.setState({ results: results as IGetBookmarksResponse[] });
     } else {
-      this.setState({ error: results });
+      this.setState({ error: results.error });
     }
   };
 
