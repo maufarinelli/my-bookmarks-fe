@@ -20,6 +20,8 @@ const URL = {
   DELETE_BOOKMARK: "/delete-bookmark"
 };
 
+let userToken: string | null;
+
 export async function login(
   userData: IUser
 ): Promise<ILoginResponse | { error: Error }> {
@@ -110,13 +112,13 @@ export async function deleteBookmark(
 }
 
 export function getUserToken(): string | null {
-  return window.localStorage.getItem("userToken");
+  return userToken;
 }
 
 export function removeUserToken(): void {
-  return window.localStorage.removeItem("userToken");
+  userToken = null;
 }
 
 export function setUserToken(token: string): void {
-  window.localStorage.setItem("userToken", token);
+  userToken = token;
 }
